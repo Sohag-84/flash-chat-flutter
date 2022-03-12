@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'login_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flash_chat/refactor_code/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
 
@@ -20,33 +21,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     controller = AnimationController(
         vsync: this,
       duration: Duration(seconds: 3),
       //upperBound: 100
     );
-
-    //create curve animation
-    //animation = CurvedAnimation(parent: controller, curve: Curves.easeInQuint);
-
-    //create color tween animation
     animation = ColorTween(begin: Colors.red,end: Colors.blue).animate(controller);
-    
     controller.forward();
-    // animation.addStatusListener((status) {
-    //   if(status == AnimationStatus.completed){
-    //     controller.reverse(from: 1);
-    //   }else if(status == AnimationStatus.dismissed){
-    //     controller.forward();
-    //   }
-    // });
     controller.addListener(() {
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -94,45 +78,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              colour: Colors.lightBlueAccent,
+              buttonText: 'Login',
+              onPressed: (){
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            RoundedButton(
+              colour: Colors.blueAccent,
+              buttonText: 'Register',
+              onPressed: (){
+                Navigator.pushNamed(context, RegistrationScreen.id);
+              },
             ),
           ],
         ),
@@ -140,3 +98,4 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     );
   }
 }
+
